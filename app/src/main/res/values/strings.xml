@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppointmentManagement</string>
+    <string name="view_edit_appointments">View/Edit appointments</string>
+    <string name="create_appointment">Create appointment</string>
+    <string name="delete_appointment">Delete appointment</string>
+    <string name="move_appointment">Move appointment</string>
+    <string name="search">Search</string>
+</resources>
