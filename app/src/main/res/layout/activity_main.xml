@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="coursework.com.appointmentmanagement.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:id="@+id/scrollView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <DatePicker
+                android:id="@+id/datePicker2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/create_appointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="@string/create_appointment"
+                android:layout_below="@+id/datePicker2"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/edit_appointments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_edit_appointments"
+                android:layout_marginTop="56dp"
+                android:layout_alignTop="@+id/search_button"
+                android:layout_centerHorizontal="true" />
+
+
+            <Button
+                android:id="@+id/delete_appointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_appointment"
+                android:layout_marginTop="11dp"
+                android:layout_below="@+id/edit_appointments"
+                android:layout_alignStart="@+id/move_appointment" />
+
+            <Button
+                android:id="@+id/move_appointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/move_appointment"
+                android:layout_alignTop="@+id/delete_appointment"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="58dp" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/create_appointment"
+        android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
