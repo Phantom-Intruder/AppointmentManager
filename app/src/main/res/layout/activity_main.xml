@@ -31,7 +31,8 @@
                 android:layout_marginTop="11dp"
                 android:text="@string/create_appointment"
                 android:layout_below="@+id/datePicker2"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:onClick="openAddAppointmentActivity"/>
 
             <Button
                 android:id="@+id/edit_appointments"

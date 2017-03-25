@@ -5,4 +5,8 @@
     <string name="delete_appointment">Delete appointment</string>
     <string name="move_appointment">Move appointment</string>
     <string name="search">Search</string>
+    <string name="appointment_title">Appointment title</string>
+    <string name="appointment_time">Appointment time</string>
+    <string name="details_of_appointment">Details of appointment</string>
+    <string name="save">Save</string>
 </resources>

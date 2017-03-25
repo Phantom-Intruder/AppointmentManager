@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="coursework.com.appointmentmanagement.AddAppointmentActivity">
+
+    <EditText
+        android:id="@+id/appointment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/appointment_title"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/save_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp" />
+
+    <EditText
+        android:id="@+id/appointment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/appointment_time"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/appointment_details" />
+
+    <EditText
+        android:id="@+id/appointment_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/details_of_appointment"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/appointment_time"
+        android:layout_alignStart="@+id/appointment_title" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:onClick="insert"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/save_button"
+        android:layout_marginBottom="36dp"
+        android:text="TextView" />
+
+</RelativeLayout>
