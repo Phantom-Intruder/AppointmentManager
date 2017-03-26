@@ -64,6 +64,7 @@
                 android:text="@string/move_appointment"
                 android:layout_alignTop="@+id/delete_appointment"
                 android:layout_marginTop="58dp"
+                android:onClick="openMoveAppointmentActivity"
                 android:layout_alignEnd="@+id/delete_appointment"
                 android:layout_alignStart="@+id/delete_appointment" />
 

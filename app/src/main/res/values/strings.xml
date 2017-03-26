@@ -16,4 +16,8 @@
     <string name="delete">Delete</string>
     <string name="view_edit">View/Edit</string>
     <string name="enter_number_to_edit">Enter number to edit</string>
+    <string name="move">Move</string>
+    <string name="enter_number_to_move">Enter number to move</string>
+    <string name="enter_word">Enter word</string>
+    <string name="thesaurus">Thesaurus</string>
 </resources>

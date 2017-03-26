@@ -51,4 +51,17 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
     }
+
+    public void openMoveAppointmentActivity(View view) {
+        DatePicker datePicker = (DatePicker)findViewById(R.id.datePicker);
+        int date = 0;
+        date = datePicker.getDayOfMonth();
+        if (date == 0){
+            Toast.makeText(this, "Please choose a date", Toast.LENGTH_LONG).show();
+        }else{
+            Intent intent = new Intent(this, MoveAppointmentActivity.class);
+            intent.putExtra("Date", date);
+            startActivity(intent);
+        }
+    }
 }

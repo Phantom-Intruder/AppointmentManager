@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="coursework.com.appointmentmanagement.MoveAppointmentActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:id="@+id/scrollView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/appointments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_appointments_on_this_day"
+                tools:layout_editor_absoluteX="103dp"
+                tools:layout_editor_absoluteY="141dp"
+                android:layout_marginTop="72dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:id="@+id/edit_choice_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/enter_number_to_move"
+                android:inputType="number"
+                tools:layout_editor_absoluteX="84dp"
+                tools:layout_editor_absoluteY="382dp"
+                android:layout_marginTop="367dp"
+                android:layout_below="@+id/appointments"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/move_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:onClick="moveRecord"
+                android:text="@string/move"
+                android:layout_below="@+id/edit_choice_box"
+                android:layout_centerHorizontal="true" />
+
+            <DatePicker
+                android:id="@+id/datePicker2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appointments"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="56dp" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
