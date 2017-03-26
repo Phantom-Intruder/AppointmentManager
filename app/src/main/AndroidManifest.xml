@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddAppointmentActivity"></activity>
+        <activity android:name=".AddAppointmentActivity" />
+        <activity android:name=".DeleteChoiceActivity" />
+        <activity android:name=".DeleteEntryActivity" />
+        <activity android:name=".ViewChoiceActivity"></activity>
     </application>
 
 </manifest>

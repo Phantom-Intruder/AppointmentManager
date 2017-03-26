@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <DatePicker
-                android:id="@+id/datePicker2"
+                android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -30,9 +30,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:text="@string/create_appointment"
-                android:layout_below="@+id/datePicker2"
-                android:layout_centerHorizontal="true"
-                android:onClick="openAddAppointmentActivity"/>
+                android:layout_below="@+id/datePicker"
+                android:onClick="openAddAppointmentActivity"
+                android:layout_alignStart="@+id/search_button"
+                android:layout_alignEnd="@+id/search_button" />
 
             <Button
                 android:id="@+id/edit_appointments"
@@ -41,7 +42,8 @@
                 android:text="@string/view_edit_appointments"
                 android:layout_marginTop="56dp"
                 android:layout_alignTop="@+id/search_button"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:onClick="openEditActivity"/>
 
 
             <Button
@@ -51,7 +53,9 @@
                 android:text="@string/delete_appointment"
                 android:layout_marginTop="11dp"
                 android:layout_below="@+id/edit_appointments"
-                android:layout_alignStart="@+id/move_appointment" />
+                android:layout_alignEnd="@+id/edit_appointments"
+                android:layout_alignStart="@+id/edit_appointments"
+                android:onClick="openDeleteAppointmentActivity"/>
 
             <Button
                 android:id="@+id/move_appointment"
@@ -59,8 +63,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/move_appointment"
                 android:layout_alignTop="@+id/delete_appointment"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="58dp" />
+                android:layout_marginTop="58dp"
+                android:layout_alignEnd="@+id/delete_appointment"
+                android:layout_alignStart="@+id/delete_appointment" />
 
     <Button
         android:id="@+id/search_button"
@@ -69,7 +74,8 @@
         android:text="@string/search"
         android:layout_marginTop="11dp"
         android:layout_below="@+id/create_appointment"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignEnd="@+id/edit_appointments"
+        android:layout_alignStart="@+id/edit_appointments" />
 
         </RelativeLayout>
     </ScrollView>

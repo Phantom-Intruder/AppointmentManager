@@ -9,4 +9,11 @@
     <string name="appointment_time">Appointment time</string>
     <string name="details_of_appointment">Details of appointment</string>
     <string name="save">Save</string>
+    <string name="delete_all_appointments_for_that_date">Delete all appointments for that date</string>
+    <string name="select_appointment_to_delete">Select appointment to delete</string>
+    <string name="no_appointments_on_this_day">No appointments on this day</string>
+    <string name="enter_number_of_appointment_to_delete">Enter number to delete</string>
+    <string name="delete">Delete</string>
+    <string name="view_edit">View/Edit</string>
+    <string name="enter_number_to_edit">Enter number to edit</string>
 </resources>
