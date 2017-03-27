@@ -118,9 +118,6 @@ public class ThesaurusActivity extends Activity {
         }
     }
 
-
-
-
     private static String getValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);

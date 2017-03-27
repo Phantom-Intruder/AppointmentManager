@@ -31,6 +31,7 @@
             android:name=".ThesaurusReplaceActivity"
             android:label="Thesaurus"
             android:theme="@style/AppThemeBorderless" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

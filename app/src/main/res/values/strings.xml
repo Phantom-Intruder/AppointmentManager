@@ -20,4 +20,5 @@
     <string name="enter_number_to_move">Enter number to move</string>
     <string name="enter_word">Enter word</string>
     <string name="thesaurus">Thesaurus</string>
+    <string name="type_in_search_query">Type in search query</string>
 </resources>

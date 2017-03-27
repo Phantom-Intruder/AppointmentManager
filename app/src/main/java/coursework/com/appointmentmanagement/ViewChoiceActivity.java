@@ -121,5 +121,5 @@ public class ViewChoiceActivity extends Activity {
         intent.putExtra("details", details);
         startActivity(intent);
     }
-    }
+}
 

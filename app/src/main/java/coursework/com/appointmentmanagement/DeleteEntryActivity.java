@@ -42,11 +42,12 @@ public class DeleteEntryActivity extends Activity {
                 String title = c.getString(c.getColumnIndex("title"));
                 String dateString = c.getString(1);
                 int time = c.getInt(2);
-                Log.d(TAG, "data123 "+ time);
                 String details = c.getString(3);
 
                 //display on text view
                 if (Integer.parseInt(dateString) == date){
+                    Log.d(TAG ,"asdfsdf "+ time);
+
                     String newTitle = title.replaceAll("[^A-Za-z ]+", "");
                     index++;
                     displayDeleteOptionsText.append(index+ " " + time + " " + newTitle + "\n");

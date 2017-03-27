@@ -64,4 +64,9 @@ public class MainActivity extends Activity {
             startActivity(intent);
         }
     }
+
+    public void openSearchActivity(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
 }
