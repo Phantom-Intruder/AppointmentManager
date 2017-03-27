@@ -4,24 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.io.InputStream;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -30,20 +30,30 @@ import okhttp3.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class ThesaurusActivity extends Activity {
+public class ThesaurusReplaceActivity extends Activity {
     private OkHttpClient client;
     private Request request;
     Response response;
     private ListView mainListView ;
     private ArrayAdapter<String> listAdapter ;
     private ArrayList<String> logData = new ArrayList<>();
+    String[] dataFromInputStream;
+    int date;
+    String title;
+    int time;
+    String details;
+    String wordToSend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thesaurus);
+        setContentView(R.layout.activity_thesaurus_replace);
         Intent intent = getIntent();
         //tv1 = (TextView) findViewById(R.id.textView1);
-        String wordToSend = intent.getStringExtra("word");
+        wordToSend = intent.getStringExtra("word");
+        date  = intent.getIntExtra("Date", 0);
+        title= intent.getStringExtra("title");
+        time = intent.getIntExtra("time", 0);
+        details = intent.getStringExtra("details");
         String url = "http://thesaurus.altervista.org/thesaurus/v1?word="+wordToSend+"&language=en_US& key=AtwIFkvWfU2rdYlngsoi&output=xml";
         client = new OkHttpClient();
 
@@ -88,12 +98,12 @@ public class ThesaurusActivity extends Activity {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element2 = (Element) node;
 
-                    String dateFromInputStreamString =  getValue("synonyms", element2);
-                    dateFromInputStreamString = dateFromInputStreamString.replace('|',',');
-                    String[] dateFromInputStream = dateFromInputStreamString.split(",");
+                    String dataFromInputStreamString =  getValue("synonyms", element2);
+                    dataFromInputStreamString = dataFromInputStreamString.replace('|',',');
+                    dataFromInputStream = dataFromInputStreamString.split(",");
 
                     System.out.print("");
-                    for (String aDateFromInputStream : dateFromInputStream) {
+                    for (String aDateFromInputStream : dataFromInputStream) {
                         Log.d(TAG, "qerwer " + aDateFromInputStream);
 
                         logData.add(aDateFromInputStream);
@@ -108,7 +118,21 @@ public class ThesaurusActivity extends Activity {
 
             // Create ArrayAdapter using the planet list.
             listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, logData);
+
             mainListView.setAdapter( listAdapter );
+            final Intent intent1 = new Intent(this, AddAppointmentActivity.class);
+            mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.d(TAG, "alerted123 "+logData.get(i));
+                    details = details.replace(wordToSend,logData.get(i));
+                    intent1.putExtra("Date", date);
+                    intent1.putExtra("title", title);
+                    intent1.putExtra("time", time);
+                    intent1.putExtra("details", details);
+                    startActivity(intent1);
+                }
+            });
         }catch (SAXException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
@@ -118,12 +142,10 @@ public class ThesaurusActivity extends Activity {
         }
     }
 
-
-
-
     private static String getValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
         return node.getNodeValue();
     }
-}
+    }
+

@@ -46,8 +46,8 @@
         android:ems="10"
         android:hint="@string/details_of_appointment"
         android:inputType="textMultiLine"
-        android:layout_marginTop="83dp"
-        android:layout_below="@+id/appointment_time"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/thesaurus_replace"
         android:layout_alignStart="@+id/appointment_title" />
 
     <Button
@@ -81,6 +81,16 @@
                 android:layout_toEndOf="@+id/save_button"
                 android:onClick="getDataFromServerAndPresent"
                 android:layout_marginStart="25dp" />
+
+            <Button
+                android:id="@+id/thesaurus_replace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appointment_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="29dp"
+                android:text="@string/thesaurus"
+                android:onClick="openThesaurusReplace"/>
 
         </RelativeLayout>
     </ScrollView>

@@ -23,7 +23,14 @@
         <activity android:name=".DeleteEntryActivity" />
         <activity android:name=".ViewChoiceActivity" />
         <activity android:name=".MoveAppointmentActivity" />
-        <activity android:name=".ThesaurusActivity" android:theme="@style/AppThemeBorderless"/>
+        <activity
+            android:name=".ThesaurusActivity"
+            android:label="Thesaurus"
+            android:theme="@style/AppThemeBorderless" />
+        <activity
+            android:name=".ThesaurusReplaceActivity"
+            android:label="Thesaurus"
+            android:theme="@style/AppThemeBorderless" />
     </application>
 
 </manifest>

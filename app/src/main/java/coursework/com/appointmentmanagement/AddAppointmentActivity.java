@@ -88,4 +88,21 @@ public class AddAppointmentActivity extends Activity {
         intent.putExtra("word", wordToSendString);
         startActivity(intent);
         }
+
+    public void openThesaurusReplace(View view) {
+        EditText wordToSendEditText = (EditText) findViewById(R.id.appointment_details);
+        int startSelection=wordToSendEditText .getSelectionStart();
+        int endSelection=wordToSendEditText .getSelectionEnd();
+        String title = appointmentTitleEditText.getText().toString();
+        String time= appointmentTimeEditText.getText().toString();
+        String details = appointmentDetailsEditText.getText().toString();
+        String selectedText = wordToSendEditText .getText().toString().substring(startSelection, endSelection);
+        Intent intent  = new Intent(this, ThesaurusReplaceActivity.class);
+        intent.putExtra("word", selectedText);
+        intent.putExtra("Date", date);
+        intent.putExtra("title", title);
+        intent.putExtra("time", time);
+        intent.putExtra("details", details);
+        startActivity(intent);
+    }
 }
