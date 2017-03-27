@@ -5,23 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="coursework.com.appointmentmanagement.ThesaurusActivity">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
 
-        android:id="@+id/scrollView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+            <ListView android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/mainListView">
+            </ListView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="125dp" />
-        </RelativeLayout>
-    </ScrollView>
 </RelativeLayout>
