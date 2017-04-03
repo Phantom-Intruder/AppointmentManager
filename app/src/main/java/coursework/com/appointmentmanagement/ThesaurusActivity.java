@@ -70,52 +70,75 @@ public class ThesaurusActivity extends Activity {
         while (thread.isAlive()){
 
         }
-        try {
-            InputStream is = response.body().byteStream();
+        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, logData);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
 
-            Element element=doc.getDocumentElement();
-            element.normalize();
 
-            NodeList nList = doc.getElementsByTagName("list");
-            int indexOfMainArray = 0;
-            for (int i=0; i<nList.getLength(); i++) {
+            Thread threadShowData = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    InputStream is = response.body().byteStream();
 
-                Node node = nList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element2 = (Element) node;
+                    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder dBuilder = null;
+                    try {
+                        dBuilder = dbFactory.newDocumentBuilder();
+                        Document doc = dBuilder.parse(is);
 
-                    String dateFromInputStreamString =  getValue("synonyms", element2);
-                    dateFromInputStreamString = dateFromInputStreamString.replace('|',',');
-                    String[] dateFromInputStream = dateFromInputStreamString.split(",");
 
-                    System.out.print("");
-                    for (String aDateFromInputStream : dateFromInputStream) {
-                        Log.d(TAG, "qerwer " + aDateFromInputStream);
 
-                        logData.add(aDateFromInputStream);
-                        //tv1.setText(tv1.getText()+"\n    " + aDateFromInputStream+"\n");
-                        indexOfMainArray++;
+                    Element element=doc.getDocumentElement();
+                    element.normalize();
 
+                    NodeList nList = doc.getElementsByTagName("list");
+                    int indexOfMainArray = 0;
+                    for (int i=0; i<nList.getLength(); i++) {
+
+                        Node node = nList.item(i);
+                        if (node.getNodeType() == Node.ELEMENT_NODE) {
+                            Element element2 = (Element) node;
+
+                            String dateFromInputStreamString =  getValue("synonyms", element2);
+                            dateFromInputStreamString = dateFromInputStreamString.replace('|',',');
+                            String[] dateFromInputStream = dateFromInputStreamString.split(",");
+
+                            System.out.print("");
+                            for (String aDateFromInputStream : dateFromInputStream) {
+                                Log.d(TAG, "qerwer " + aDateFromInputStream);
+
+                                logData.add(aDateFromInputStream);
+                                //tv1.setText(tv1.getText()+"\n    " + aDateFromInputStream+"\n");
+                                indexOfMainArray++;
+
+                            }
+
+                        }
                     }
 
-                }
-            }
-            mainListView = (ListView) findViewById( R.id.mainListView );
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
-            // Create ArrayAdapter using the planet list.
-            listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, logData);
-            mainListView.setAdapter( listAdapter );
-        }catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                                mainListView = (ListView) findViewById( R.id.mainListView );
+
+                                // Create ArrayAdapter using the planet list.
+                                mainListView.setAdapter( listAdapter );
+                            }
+                        });
+                    } catch (ParserConfigurationException e) {
+                        e.printStackTrace();
+                    } catch (SAXException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
+
+            threadShowData.start();
+
     }
 
     private static String getValue(String tag, Element element) {

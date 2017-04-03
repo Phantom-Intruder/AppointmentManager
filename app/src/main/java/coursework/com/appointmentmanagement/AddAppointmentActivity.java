@@ -4,7 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +21,7 @@ import okhttp3.Request;
 
 import static android.content.ContentValues.TAG;
 
-public class AddAppointmentActivity extends Activity {
+public class AddAppointmentActivity extends AppCompatActivity {
     private OkHttpClient client;
     SQLiteDatabase db;
     EditText appointmentTitleEditText, appointmentDetailsEditText, appointmentTimeEditText;
@@ -28,6 +33,10 @@ public class AddAppointmentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appointment);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Add appointment");
         //initialize all view objects
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
@@ -53,34 +62,52 @@ public class AddAppointmentActivity extends Activity {
         //create new table if not already exist
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time int, details varchar)");
     }
+
+    //Handle title bar actions
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        switch (id){
+            default:
+                this.finish();
+                return true;
+        }
+    }
+
     //This method will call on when we click on insert button
     public void insert(View v)
     {
-        String appointmentTitle = appointmentTitleEditText.getText().toString();
-        String appointmentTime = appointmentTimeEditText.getText().toString();
-        String appointmentDetails = appointmentDetailsEditText.getText().toString();
-        int timeInteger = Integer.parseInt(appointmentTime.replaceAll("[\\D]", ""));
+        try {
+            String appointmentTitle = appointmentTitleEditText.getText().toString();
+            String appointmentTime = appointmentTimeEditText.getText().toString();
+            String appointmentDetails = appointmentDetailsEditText.getText().toString();
+            int timeInteger = Integer.parseInt(appointmentTime.replaceAll("[\\D]", ""));
 
-        appointmentTitleEditText.setText("");
-        appointmentTimeEditText.setText("");
-        appointmentDetailsEditText.setText("");
-        //insert data into able
-        dateString = date+"";
-        String appointmentTitleWithDate = appointmentTitle+date;
-        if (titlesList.contains(appointmentTitleWithDate)){
-            //Show an alert dialog when the about button is clicked
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Duplicate appointment titles");
-            builder.setMessage(appointmentTitle+" already exists, please choose a different event title");
-            builder.setPositiveButton("OK", null);
-            builder.show();
-        }else{
+            appointmentTitleEditText.setText("");
+            appointmentTimeEditText.setText("");
+            appointmentDetailsEditText.setText("");
+            //insert data into able
+            dateString = date + "";
+            String appointmentTitleWithDate = appointmentTitle + date;
+            if (titlesList.contains(appointmentTitleWithDate)) {
+                //Show an alert dialog when the about button is clicked
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Duplicate appointment titles");
+                builder.setMessage(appointmentTitle + " already exists, please choose a different event title");
+                builder.setPositiveButton("OK", null);
+                builder.show();
+            } else {
 
-        db.execSQL("insert into appointmentTable values('"+appointmentTitleWithDate+"','"+dateString+"','"+timeInteger+"','"+appointmentDetails+"')");
-        //display Toast
+                db.execSQL("insert into appointmentTable values('" + appointmentTitleWithDate + "','" + dateString + "','" + timeInteger + "','" + appointmentDetails + "')");
+                //display Toast
 
-        Toast.makeText(this, "values inserted successfully."+ dateString, Toast.LENGTH_LONG).show();
-    }}
+                Toast.makeText(this, "values inserted successfully." + dateString, Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e){
+            Toast.makeText(this, "Please fill in the fields", Toast.LENGTH_LONG).show();
+        }
+    }
     public void getDataFromServerAndPresent(View view) {
         EditText wordToSendEditText = (EditText) findViewById(R.id.thesaurus_word);
         String wordToSendString = wordToSendEditText.getText().toString();

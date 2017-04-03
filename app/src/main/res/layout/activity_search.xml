@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="coursework.com.appointmentmanagement.SearchActivity">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/search_box"
@@ -15,10 +26,10 @@
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="35dp"
         tools:layout_editor_absoluteY="99dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="36dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/linearLayout"
+        android:layout_toStartOf="@+id/search"
+        android:layout_marginEnd="27dp"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/search"

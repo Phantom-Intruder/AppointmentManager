@@ -1,9 +1,30 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+     
+        
+    <item name="colorAccent">@color/ComponentColour</item>
+    <item name="colorPrimary">@color/ToolbarColour</item>
+    <item name="colorPrimaryDark">@color/ToolbarColourDark</item>
+</style>
+     
+        <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+            <item name="windowNoTitle">true</item>
+            <item name="windowActionBar">false</item>
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+        </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#FFC107</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:background">#FFFFFF</item>
     </style>
+
 
     <style name="AppThemeBorderless" parent="android:Theme.Holo.Light.Dialog">
         <!-- Customize your theme here. -->

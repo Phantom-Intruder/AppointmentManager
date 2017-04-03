@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +21,7 @@ import java.util.Date;
 
 import static android.content.ContentValues.TAG;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends AppCompatActivity {
     SQLiteDatabase db;
     private ListView mainListView ;
     private ArrayAdapter<String> listAdapter ;
@@ -38,8 +42,22 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Search appointment");
     }
+    //Handle title bar actions
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
 
+        switch (id){
+            default:
+                this.finish();
+                return true;
+        }
+    }
     public void searchForQuery(View view) {
         EditText searchEditText = (EditText) findViewById(R.id.search_box);
         String stringToSearch = searchEditText.getText().toString();

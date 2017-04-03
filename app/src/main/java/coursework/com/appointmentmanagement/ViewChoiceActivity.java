@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,13 +18,17 @@ import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
-public class ViewChoiceActivity extends Activity {
+public class ViewChoiceActivity extends AppCompatActivity {
     int date;
     SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_choice);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("View appointments");
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
@@ -70,6 +77,7 @@ public class ViewChoiceActivity extends Activity {
             displayDeleteOptionsText.setText("");
             //move cursor to first position
             c.moveToFirst();
+            boolean isRemoved = false;
             //fetch all data one by one
             int index = 0;
             do
@@ -85,6 +93,7 @@ public class ViewChoiceActivity extends Activity {
                     if (Integer.parseInt(dateString) == date){
                         index++;
                         if (index==recordToDelete) {
+                            isRemoved = true;
                             AlertDialog.Builder builder = new AlertDialog.Builder(this);
                             builder.setTitle("Edit confirmation");
                             builder.setMessage("Would you like to edit event: "+title.replaceAll("[^A-Za-z ]+", ""));
@@ -108,6 +117,13 @@ public class ViewChoiceActivity extends Activity {
                     return;
                 }
             }while(c.moveToNext());
+            if (!isRemoved) {
+                Toast.makeText(this, "The entered value doesn't have a record in the database", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, ViewChoiceActivity.class);
+                intent.putExtra("Date", date);
+                startActivity(intent);
+            }
+
         }
 
     }
@@ -120,6 +136,17 @@ public class ViewChoiceActivity extends Activity {
         intent.putExtra("time", time);
         intent.putExtra("details", details);
         startActivity(intent);
+    }
+    //Handle title bar actions
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        switch (id){
+            default:
+                this.finish();
+                return true;
+        }
     }
 }
 

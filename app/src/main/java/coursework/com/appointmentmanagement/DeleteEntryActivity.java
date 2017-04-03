@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,13 +19,17 @@ import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
-public class DeleteEntryActivity extends Activity {
+public class DeleteEntryActivity extends AppCompatActivity {
     int date;
     SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_entry);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Delete appointment");
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
@@ -58,6 +66,34 @@ public class DeleteEntryActivity extends Activity {
         }while(c.moveToNext());
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        switch (id){
+            default:
+                Intent intent = new Intent (this, MainActivity.class);
+                startActivity(intent);
+                return true;
+        }
+    }
+
     public void deleteRecord(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_choice_box);
         int recordToDelete = 0;
@@ -71,6 +107,8 @@ public class DeleteEntryActivity extends Activity {
             displayDeleteOptionsText.setText("");
             //move cursor to first position
             c.moveToFirst();
+            boolean isRemoved = false;
+
             //fetch all data one by one
             int index = 0;
             do
@@ -86,6 +124,8 @@ public class DeleteEntryActivity extends Activity {
                     if (Integer.parseInt(dateString) == date){
                         index++;
                         if (index==recordToDelete) {
+                            isRemoved = true;
+
                             AlertDialog.Builder builder = new AlertDialog.Builder(this);
                             builder.setTitle("Delete confirmation");
                             builder.setMessage("Would you like to delete event: "+title.replaceAll("[^A-Za-z ]+", ""));
@@ -111,6 +151,12 @@ public class DeleteEntryActivity extends Activity {
                     return;
                 }
             }while(c.moveToNext());
+            if (!isRemoved) {
+                Toast.makeText(this, "The entered value doesn't have a record in the database", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, DeleteEntryActivity.class);
+                intent.putExtra("Date", date);
+                startActivity(intent);
+            }
         }
 
     }
