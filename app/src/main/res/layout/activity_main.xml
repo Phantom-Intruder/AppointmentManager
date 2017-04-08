@@ -37,7 +37,9 @@
                 android:layout_below="@+id/datePicker"
                 android:onClick="openAddAppointmentActivity"
                 android:layout_alignStart="@+id/search_button"
-                android:layout_alignEnd="@+id/search_button" />
+                android:layout_alignEnd="@+id/search_button"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
 
             <Button
                 android:id="@+id/edit_appointments"
@@ -47,7 +49,9 @@
                 android:layout_marginTop="56dp"
                 android:layout_alignTop="@+id/search_button"
                 android:layout_centerHorizontal="true"
-                android:onClick="openEditActivity"/>
+                android:onClick="openEditActivity"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
 
 
             <Button
@@ -59,7 +63,9 @@
                 android:layout_below="@+id/edit_appointments"
                 android:layout_alignEnd="@+id/edit_appointments"
                 android:layout_alignStart="@+id/edit_appointments"
-                android:onClick="openDeleteAppointmentActivity"/>
+                android:onClick="openDeleteAppointmentActivity"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
 
             <Button
                 android:id="@+id/move_appointment"
@@ -70,7 +76,9 @@
                 android:layout_marginTop="58dp"
                 android:onClick="openMoveAppointmentActivity"
                 android:layout_alignEnd="@+id/delete_appointment"
-                android:layout_alignStart="@+id/delete_appointment" />
+                android:layout_alignStart="@+id/delete_appointment"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
 
     <Button
         android:id="@+id/search_button"
@@ -81,7 +89,9 @@
         android:layout_marginTop="11dp"
         android:layout_below="@+id/create_appointment"
         android:layout_alignEnd="@+id/edit_appointments"
-        android:layout_alignStart="@+id/edit_appointments" />
+        android:layout_alignStart="@+id/edit_appointments"
+        android:background="@drawable/btn_green"
+        android:textColor="#fff"/>
 
         </RelativeLayout>
     </ScrollView>

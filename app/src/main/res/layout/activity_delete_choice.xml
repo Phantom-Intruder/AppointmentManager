@@ -18,7 +18,9 @@
         android:text="@string/delete_all_appointments_for_that_date"
         android:onClick="deleteAllAppointments"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_green"
+        android:textColor="#fff"/>
 
     <Button
         android:id="@+id/select_delete_appointment"
@@ -29,5 +31,7 @@
         android:text="@string/select_appointment_to_delete"
         android:layout_alignEnd="@+id/delete_all"
         android:layout_alignStart="@+id/delete_all"
-        android:onClick="selectAppointmentToDelete"/>
+        android:onClick="selectAppointmentToDelete"
+        android:background="@drawable/btn_green"
+        android:textColor="#fff"/>
 </RelativeLayout>

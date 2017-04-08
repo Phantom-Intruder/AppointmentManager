@@ -58,6 +58,8 @@
                 android:layout_below="@+id/edit_choice_box"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="33dp"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"
                 android:onClick="editRecord"
                 android:text="@string/view_edit" />
         </RelativeLayout>

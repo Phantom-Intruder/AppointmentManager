@@ -40,6 +40,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="26dp"
         android:onClick="searchForQuery"
+        android:background="@drawable/btn_green"
+        android:textColor="#fff"
         android:text="@string/search" />
 
     <ListView android:layout_width="fill_parent"

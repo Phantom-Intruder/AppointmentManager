@@ -64,7 +64,9 @@
         android:layout_marginTop="87dp"
         android:onClick="insert"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_green"
+        android:textColor="#fff"/>
 
             <EditText
                 android:id="@+id/thesaurus_word"
@@ -86,7 +88,9 @@
                 android:layout_below="@+id/save_button"
                 android:layout_toEndOf="@+id/save_button"
                 android:onClick="getDataFromServerAndPresent"
-                android:layout_marginStart="25dp" />
+                android:layout_marginStart="25dp"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
 
             <Button
                 android:id="@+id/thesaurus_replace"
@@ -96,7 +100,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="29dp"
                 android:text="@string/thesaurus"
-                android:onClick="openThesaurusReplace"/>
+                android:onClick="openThesaurusReplace"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
 
         </RelativeLayout>
     </ScrollView>

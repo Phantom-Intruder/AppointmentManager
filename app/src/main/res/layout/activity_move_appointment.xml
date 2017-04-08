@@ -58,6 +58,8 @@
                 android:layout_marginTop="31dp"
                 android:onClick="moveRecord"
                 android:text="@string/move"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"
                 android:layout_below="@+id/edit_choice_box"
                 android:layout_centerHorizontal="true" />
 

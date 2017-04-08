@@ -2,7 +2,9 @@ package coursework.com.appointmentmanagement;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -62,6 +65,22 @@ public class AddAppointmentActivity extends AppCompatActivity {
         //create new table if not already exist
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time int, details varchar)");
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     //Handle title bar actions
     @Override
@@ -78,6 +97,21 @@ public class AddAppointmentActivity extends AppCompatActivity {
     //This method will call on when we click on insert button
     public void insert(View v)
     {
+        Cursor c=db.rawQuery("select * from appointmentTable order by time asc", null);
+        c.moveToFirst();
+        int index = 0;
+        do
+        {
+            try {
+                final String title = c.getString(c.getColumnIndex("title"));
+                final String dateString = c.getString(1);
+                final int time = c.getInt(2);
+                final String details = c.getString(3);
+                titlesList.add(title);
+            }catch (Exception e){
+                return;
+            }
+        }while(c.moveToNext());
         try {
             String appointmentTitle = appointmentTitleEditText.getText().toString();
             String appointmentTime = appointmentTimeEditText.getText().toString();
@@ -90,6 +124,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
             //insert data into able
             dateString = date + "";
             String appointmentTitleWithDate = appointmentTitle + date;
+            Log.d(TAG, "dadadada  "+ appointmentTitleWithDate+ "  "+ titlesList.contains(appointmentTitleWithDate));
+            if (titlesList.isEmpty())
+                Log.d(TAG, "dadadada  212313");
             if (titlesList.contains(appointmentTitleWithDate)) {
                 //Show an alert dialog when the about button is clicked
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -105,6 +142,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
                 Toast.makeText(this, "values inserted successfully." + dateString, Toast.LENGTH_LONG).show();
             }
         } catch (Exception e){
+            e.printStackTrace();
             Toast.makeText(this, "Please fill in the fields", Toast.LENGTH_LONG).show();
         }
     }

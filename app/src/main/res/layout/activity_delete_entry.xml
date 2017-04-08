@@ -52,7 +52,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="33dp"
                 android:onClick="deleteRecord"
-                android:text="@string/delete" />
+                android:text="@string/delete"
+                android:background="@drawable/btn_green"
+                android:textColor="#fff"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
