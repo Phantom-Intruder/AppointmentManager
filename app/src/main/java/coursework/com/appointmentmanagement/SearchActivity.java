@@ -42,6 +42,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        //Create toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,7 +79,6 @@ public class SearchActivity extends AppCompatActivity {
                 String title = c.getString(c.getColumnIndex("title"));
                 String dateString = c.getString(1);
                 int time = c.getInt(2);
-                Log.d(TAG, "data123 "+ time);
                 String details = c.getString(3);
 
                 //display on text view

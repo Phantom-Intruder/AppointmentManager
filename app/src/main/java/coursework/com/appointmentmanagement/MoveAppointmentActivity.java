@@ -27,15 +27,22 @@ public class MoveAppointmentActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move_appointment);
+
+        //Create toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Move appointment");
+
+        //Get data passed
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
+
+        //Create table if not exists
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time int, details varchar)");
 
+        //Go through database
         Cursor c=db.rawQuery("select * from appointmentTable order by time asc", null);
         TextView displayDeleteOptionsText = (TextView) findViewById(R.id.appointments);
         displayDeleteOptionsText.setText("");
@@ -51,7 +58,6 @@ public class MoveAppointmentActivity extends AppCompatActivity{
                 String title = c.getString(c.getColumnIndex("title"));
                 String dateString = c.getString(1);
                 int time = c.getInt(2);
-                Log.d(TAG, "data123 "+ time);
                 String details = c.getString(3);
 
                 //display on text view
@@ -85,8 +91,7 @@ public class MoveAppointmentActivity extends AppCompatActivity{
             int index = 0;
             do
             {
-                //we can use c.getString(0) here
-                //or we can get data using column index
+
                 try {
                     final String title = c.getString(c.getColumnIndex("title"));
                     final String dateString = c.getString(1);
@@ -104,7 +109,6 @@ public class MoveAppointmentActivity extends AppCompatActivity{
                             builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //If user responds yes then save the game data and exit
-                                    Log.d(TAG, "qweewe "+ title + "=="+time+"=="+dateString+"=="+details);
                                     moveData(title, dateString, time, details);
                                 }
                             }).create();
@@ -123,6 +127,7 @@ public class MoveAppointmentActivity extends AppCompatActivity{
                 }
             }while(c.moveToNext());
             if (!isRemoved) {
+                //If data not in database
                 Toast.makeText(this, "The entered value doesn't have a record in the database", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MoveAppointmentActivity.class);
                 intent.putExtra("Date", date);
@@ -160,6 +165,7 @@ public class MoveAppointmentActivity extends AppCompatActivity{
         }
     }
 
+    //Handle back button presses
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5

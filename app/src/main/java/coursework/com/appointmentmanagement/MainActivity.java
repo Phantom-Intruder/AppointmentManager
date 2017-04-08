@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Handle back button presses
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5

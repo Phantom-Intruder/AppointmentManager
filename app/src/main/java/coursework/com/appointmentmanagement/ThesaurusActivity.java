@@ -42,7 +42,11 @@ public class ThesaurusActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thesaurus);
         Intent intent = getIntent();
-        //tv1 = (TextView) findViewById(R.id.textView1);
+
+        /*Create the word that needs to be sent and put it in a URL.
+            Send the URL request and get the response
+            Convert the response from XML to readable format
+         */
         String wordToSend = intent.getStringExtra("word");
         String url = "http://thesaurus.altervista.org/thesaurus/v1?word="+wordToSend+"&language=en_US& key=AtwIFkvWfU2rdYlngsoi&output=xml";
         client = new OkHttpClient();

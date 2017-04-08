@@ -21,12 +21,18 @@ public class DeleteChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_choice);
+
+        //Create toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Delete appointment");
+
+        //Get data passed from previous intent
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
+
+        //Create database of not exists
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time varchar, details varchar)");
     }
@@ -42,6 +48,8 @@ public class DeleteChoiceActivity extends AppCompatActivity {
         Toast.makeText(this, "Successfully deleted", Toast.LENGTH_LONG).show();
     }
 
+
+    //Handle back key presses
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5

@@ -48,7 +48,12 @@ public class ThesaurusReplaceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thesaurus_replace);
         Intent intent = getIntent();
-        //tv1 = (TextView) findViewById(R.id.textView1);
+
+        /*Create the word that needs to be sent and put it in a URL.
+            Send the URL request and get the response
+            Convert the response from XML to readable format
+         */
+
         wordToSend = intent.getStringExtra("word");
         date  = intent.getIntExtra("Date", 0);
         title= intent.getStringExtra("title");
@@ -104,12 +109,8 @@ public class ThesaurusReplaceActivity extends Activity {
 
                     System.out.print("");
                     for (String aDateFromInputStream : dataFromInputStream) {
-                        Log.d(TAG, "qerwer " + aDateFromInputStream);
-
                         logData.add(aDateFromInputStream);
-                        //tv1.setText(tv1.getText()+"\n    " + aDateFromInputStream+"\n");
                         indexOfMainArray++;
-
                     }
 
                 }

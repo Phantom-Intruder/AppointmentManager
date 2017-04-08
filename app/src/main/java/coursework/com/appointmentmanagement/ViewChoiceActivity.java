@@ -26,12 +26,18 @@ public class ViewChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_choice);
+
+        //Create toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("View appointments");
+
+        //Get data from intent
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
+
+        //Create table if not exists and loop through table data
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time int, details varchar)");
 
@@ -44,13 +50,11 @@ public class ViewChoiceActivity extends AppCompatActivity {
         int index = 0;
         do
         {
-            //we can use c.getString(0) here
-            //or we can get data using column index
+
             try {
                 String title = c.getString(c.getColumnIndex("title"));
                 String dateString = c.getString(1);
                 int time = c.getInt(2);
-                Log.d(TAG, "data123 "+ time);
                 String details = c.getString(3);
 
                 //display on text view
@@ -83,8 +87,6 @@ public class ViewChoiceActivity extends AppCompatActivity {
             int index = 0;
             do
             {
-                //we can use c.getString(0) here
-                //or we can get data using column index
                 try {
                     final String title = c.getString(c.getColumnIndex("title"));
                     final String dateString = c.getString(1);
@@ -100,7 +102,6 @@ public class ViewChoiceActivity extends AppCompatActivity {
                             builder.setMessage("Would you like to edit event: "+title.replaceAll("[^A-Za-z ]+", ""));
                             builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //If user responds yes then save the game data and exit
                                     editData(title, dateString, time, details);
                                 }
                             }).create();
@@ -138,6 +139,7 @@ public class ViewChoiceActivity extends AppCompatActivity {
         intent.putExtra("details", details);
         startActivity(intent);
     }
+
     //Handle title bar actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -150,6 +152,7 @@ public class ViewChoiceActivity extends AppCompatActivity {
         }
     }
 
+    //Handle back key presses
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5

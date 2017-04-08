@@ -36,11 +36,13 @@ public class AddAppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appointment);
+		
+		//Set toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add appointment");
-        //initialize all view objects
+       
+	   	//Get data passed 
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
         String title= intent.getStringExtra("title");
@@ -49,6 +51,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
         appointmentTitleEditText =(EditText)findViewById(R.id.appointment_title);
         appointmentTimeEditText =(EditText)findViewById(R.id.appointment_time);
         appointmentDetailsEditText =(EditText)findViewById(R.id.appointment_details);
+		
+		//Ensure no details are null
         if (title != null) {
             appointmentTitleEditText.setText(title);
         }
@@ -59,12 +63,14 @@ public class AddAppointmentActivity extends AppCompatActivity {
         if (details != null) {
             appointmentDetailsEditText.setText(details);
         }
-        //create database if not already exist
-
+		
+        //create database if it doesn't alredy exist
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
-        //create new table if not already exist
+        //create new table if it doesn't alredy exist
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time int, details varchar)");
     }
+	
+	//Handle back key presses 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
@@ -102,6 +108,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
         int index = 0;
         do
         {
+		//Take data from the database to check if the title already exists to ensure that data isn't duplicated
             try {
                 final String title = c.getString(c.getColumnIndex("title"));
                 final String dateString = c.getString(1);
@@ -121,12 +128,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
             appointmentTitleEditText.setText("");
             appointmentTimeEditText.setText("");
             appointmentDetailsEditText.setText("");
-            //insert data into able
             dateString = date + "";
             String appointmentTitleWithDate = appointmentTitle + date;
-            Log.d(TAG, "dadadada  "+ appointmentTitleWithDate+ "  "+ titlesList.contains(appointmentTitleWithDate));
-            if (titlesList.isEmpty())
-                Log.d(TAG, "dadadada  212313");
             if (titlesList.contains(appointmentTitleWithDate)) {
                 //Show an alert dialog when the about button is clicked
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -135,11 +138,10 @@ public class AddAppointmentActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", null);
                 builder.show();
             } else {
-
+                //insert data into able
                 db.execSQL("insert into appointmentTable values('" + appointmentTitleWithDate + "','" + dateString + "','" + timeInteger + "','" + appointmentDetails + "')");
                 //display Toast
-
-                Toast.makeText(this, "values inserted successfully." + dateString, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "values inserted successfully.", Toast.LENGTH_LONG).show();
             }
         } catch (Exception e){
             e.printStackTrace();

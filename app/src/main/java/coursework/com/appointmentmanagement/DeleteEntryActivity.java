@@ -26,12 +26,18 @@ public class DeleteEntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_entry);
+
+        //Create toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Delete appointment");
+
+        //Get data that was passed
         Intent intent = getIntent();
         date  = intent.getIntExtra("Date", 0);
+
+        //Create table if not exists and loop through table
         db= openOrCreateDatabase("Mydb", MODE_PRIVATE, null);
         db.execSQL("create table if not exists appointmentTable(title varchar, date varchar, time int, details varchar)");
 
@@ -44,8 +50,7 @@ public class DeleteEntryActivity extends AppCompatActivity {
         int index = 0;
         do
         {
-            //we can use c.getString(0) here
-            //or we can get data using column index
+
             try {
                 String title = c.getString(c.getColumnIndex("title"));
                 String dateString = c.getString(1);
@@ -54,8 +59,6 @@ public class DeleteEntryActivity extends AppCompatActivity {
 
                 //display on text view
                 if (Integer.parseInt(dateString) == date){
-                    Log.d(TAG ,"asdfsdf "+ time);
-
                     String newTitle = title.replaceAll("[^A-Za-z ]+", "");
                     index++;
                     displayDeleteOptionsText.append(index+ " " + time + " " + newTitle + "\n");
@@ -66,6 +69,7 @@ public class DeleteEntryActivity extends AppCompatActivity {
         }while(c.moveToNext());
     }
 
+    //Handle back button presses
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
@@ -82,6 +86,7 @@ public class DeleteEntryActivity extends AppCompatActivity {
         finish();
     }
 
+    //Handle title bar actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -113,8 +118,6 @@ public class DeleteEntryActivity extends AppCompatActivity {
             int index = 0;
             do
             {
-                //we can use c.getString(0) here
-                //or we can get data using column index
                 try {
                     final String title = c.getString(c.getColumnIndex("title"));
                     String dateString = c.getString(1);
@@ -133,7 +136,6 @@ public class DeleteEntryActivity extends AppCompatActivity {
 
                             builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //If user responds yes then save the game data and exit
                                     deleteData(title, intentForNewActivty);
                                 }
                             }).create();
@@ -152,6 +154,7 @@ public class DeleteEntryActivity extends AppCompatActivity {
                 }
             }while(c.moveToNext());
             if (!isRemoved) {
+                //Check if data is in database
                 Toast.makeText(this, "The entered value doesn't have a record in the database", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, DeleteEntryActivity.class);
                 intent.putExtra("Date", date);
