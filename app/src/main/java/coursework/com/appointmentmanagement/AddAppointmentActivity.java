@@ -106,19 +106,21 @@ public class AddAppointmentActivity extends AppCompatActivity {
         Cursor c=db.rawQuery("select * from appointmentTable order by time asc", null);
         c.moveToFirst();
         int index = 0;
+        try {
         do
         {
 		//Take data from the database to check if the title already exists to ensure that data isn't duplicated
-            try {
+
                 final String title = c.getString(c.getColumnIndex("title"));
                 final String dateString = c.getString(1);
                 final int time = c.getInt(2);
                 final String details = c.getString(3);
                 titlesList.add(title);
-            }catch (Exception e){
-                return;
-            }
+
         }while(c.moveToNext());
+        }catch (Exception ignored){
+
+        }
         try {
             String appointmentTitle = appointmentTitleEditText.getText().toString();
             String appointmentTime = appointmentTimeEditText.getText().toString();

@@ -88,8 +88,8 @@ public class SearchActivity extends AppCompatActivity {
                 logDataTimes.add(time);
                 logDataDates.add(dateString);
 
-            }catch (Exception e){
-                return;
+            }catch (Exception ignored){
+
             }
         }while(c.moveToNext());
         searchData = new ArrayList<>();

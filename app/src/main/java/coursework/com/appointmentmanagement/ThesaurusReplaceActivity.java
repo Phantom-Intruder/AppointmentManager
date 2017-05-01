@@ -85,63 +85,85 @@ public class ThesaurusReplaceActivity extends Activity {
         while (thread.isAlive()){
 
         }
-        try {
-            InputStream is = response.body().byteStream();
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
+        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, logData);
+        final Intent intent1 = new Intent(this, AddAppointmentActivity.class);
 
-            Element element=doc.getDocumentElement();
-            element.normalize();
+        final Thread threadShowData = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                InputStream is = response.body().byteStream();
 
-            NodeList nList = doc.getElementsByTagName("list");
-            int indexOfMainArray = 0;
-            for (int i=0; i<nList.getLength(); i++) {
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = null;
+                try {
+                    dBuilder = dbFactory.newDocumentBuilder();
+                    Document doc = dBuilder.parse(is);
 
-                Node node = nList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element2 = (Element) node;
 
-                    String dataFromInputStreamString =  getValue("synonyms", element2);
-                    dataFromInputStreamString = dataFromInputStreamString.replace('|',',');
-                    dataFromInputStream = dataFromInputStreamString.split(",");
 
-                    System.out.print("");
-                    for (String aDateFromInputStream : dataFromInputStream) {
-                        logData.add(aDateFromInputStream);
-                        indexOfMainArray++;
+                    Element element=doc.getDocumentElement();
+                    element.normalize();
+
+                    NodeList nList = doc.getElementsByTagName("list");
+                    int indexOfMainArray = 0;
+                    for (int i=0; i<nList.getLength(); i++) {
+
+                        Node node = nList.item(i);
+                        if (node.getNodeType() == Node.ELEMENT_NODE) {
+                            Element element2 = (Element) node;
+
+                            String dateFromInputStreamString =  getValue("synonyms", element2);
+                            dateFromInputStreamString = dateFromInputStreamString.replace('|',',');
+                            String[] dateFromInputStream = dateFromInputStreamString.split(",");
+
+                            System.out.print("");
+                            for (String aDateFromInputStream : dateFromInputStream) {
+                                Log.d(TAG, "qerwer " + aDateFromInputStream);
+
+                                logData.add(aDateFromInputStream);
+                                //tv1.setText(tv1.getText()+"\n    " + aDateFromInputStream+"\n");
+                                indexOfMainArray++;
+
+                            }
+
+                        }
                     }
 
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            mainListView = (ListView) findViewById( R.id.mainListView );
+
+                            // Create ArrayAdapter using the planet list.
+                            mainListView.setAdapter( listAdapter );
+                            mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    Log.d(TAG, "alerted123 " + logData.get(i));
+                                    details = details.replace(wordToSend, logData.get(i));
+                                    intent1.putExtra("Date", date);
+                                    intent1.putExtra("title", title);
+                                    intent1.putExtra("time", time);
+                                    intent1.putExtra("details", details);
+                                    startActivity(intent1);
+                                }
+                            });
+                        }
+                    });
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            mainListView = (ListView) findViewById( R.id.mainListView );
+        });
+           threadShowData.start();
 
-            // Create ArrayAdapter using the planet list.
-            listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, logData);
-
-            mainListView.setAdapter( listAdapter );
-            final Intent intent1 = new Intent(this, AddAppointmentActivity.class);
-            mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Log.d(TAG, "alerted123 "+logData.get(i));
-                    details = details.replace(wordToSend,logData.get(i));
-                    intent1.putExtra("Date", date);
-                    intent1.putExtra("title", title);
-                    intent1.putExtra("time", time);
-                    intent1.putExtra("details", details);
-                    startActivity(intent1);
-                }
-            });
-        }catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+            }
 
     private static String getValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
