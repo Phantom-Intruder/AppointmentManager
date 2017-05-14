@@ -26,6 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:spinnersShown="true"
+                android:calendarViewShown="false"
                 android:layout_marginTop="81dp" />
 
             <Button

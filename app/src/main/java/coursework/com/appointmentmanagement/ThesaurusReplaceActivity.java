@@ -58,6 +58,8 @@ public class ThesaurusReplaceActivity extends Activity {
         date  = intent.getIntExtra("Date", 0);
         title= intent.getStringExtra("title");
         time = intent.getIntExtra("time", 0);
+        Log.d(TAG, "alerted123 " + time + ".." + title);
+
         details = intent.getStringExtra("details");
         String url = "http://thesaurus.altervista.org/thesaurus/v1?word="+wordToSend+"&language=en_US& key=AtwIFkvWfU2rdYlngsoi&output=xml";
         client = new OkHttpClient();
@@ -119,7 +121,6 @@ public class ThesaurusReplaceActivity extends Activity {
 
                             System.out.print("");
                             for (String aDateFromInputStream : dateFromInputStream) {
-                                Log.d(TAG, "qerwer " + aDateFromInputStream);
 
                                 logData.add(aDateFromInputStream);
                                 //tv1.setText(tv1.getText()+"\n    " + aDateFromInputStream+"\n");
@@ -141,11 +142,11 @@ public class ThesaurusReplaceActivity extends Activity {
                             mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    Log.d(TAG, "alerted123 " + logData.get(i));
                                     details = details.replace(wordToSend, logData.get(i));
                                     intent1.putExtra("Date", date);
                                     intent1.putExtra("title", title);
                                     intent1.putExtra("time", time);
+
                                     intent1.putExtra("details", details);
                                     startActivity(intent1);
                                 }

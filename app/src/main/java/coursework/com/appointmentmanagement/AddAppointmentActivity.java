@@ -54,7 +54,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
 		
 		//Ensure no details are null
         if (title != null) {
-            appointmentTitleEditText.setText(title);
+            String newTitle = title.replaceAll("[^A-Za-z ]+", "");
+            appointmentTitleEditText.setText(newTitle);
         }
         if (time != 0) {
             String timeString = time + "";
@@ -163,7 +164,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
         int startSelection=wordToSendEditText .getSelectionStart();
         int endSelection=wordToSendEditText .getSelectionEnd();
         String title = appointmentTitleEditText.getText().toString();
-        String time= appointmentTimeEditText.getText().toString();
+        int time= Integer.parseInt(appointmentTimeEditText.getText().toString());
         String details = appointmentDetailsEditText.getText().toString();
         String selectedText = wordToSendEditText .getText().toString().substring(startSelection, endSelection);
         Intent intent  = new Intent(this, ThesaurusReplaceActivity.class);
