@@ -59,6 +59,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
         }
         if (time != 0) {
             String timeString = time + "";
+            timeString = timeString.substring(0, (timeString.length()-2)) + ":" +  timeString.substring((timeString.length()-2), timeString.length());
             appointmentTimeEditText.setText(timeString);
         }
         if (details != null) {

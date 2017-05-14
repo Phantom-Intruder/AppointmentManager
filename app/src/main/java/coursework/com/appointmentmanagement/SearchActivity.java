@@ -104,7 +104,7 @@ public class SearchActivity extends AppCompatActivity {
             String title = logDataTitles.get(i).toLowerCase();
             int date = Integer.parseInt(logDataDates.get(i));
 
-            if (title.contains(stringToSearch) && date > d.getDate()){
+            if (title.contains(stringToSearch) && date >= d.getDate()){
                 resultData.add(logDataTitles.get(i));
                 searchData.add(logDataTitles.get(i));
                 searchDataTime.add(logDataTimes.get(i));

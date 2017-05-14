@@ -61,7 +61,10 @@ public class DeleteEntryActivity extends AppCompatActivity {
                 if (Integer.parseInt(dateString) == date){
                     String newTitle = title.replaceAll("[^A-Za-z ]+", "");
                     index++;
-                    displayDeleteOptionsText.append(index+ " " + time + " " + newTitle + "\n");
+                    String timeString = time + "";
+                    timeString = timeString.substring(0, (timeString.length()-2)) + ":" +  timeString.substring((timeString.length()-2), timeString.length());
+
+                    displayDeleteOptionsText.append(index+ " " + timeString  + " " + newTitle + "\n");
                 }
             }catch (Exception e){
                 return;
